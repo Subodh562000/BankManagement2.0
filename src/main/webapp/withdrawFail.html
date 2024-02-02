@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="atmCss.css" rel="stylesheet">
+</head>
+
+
+
+<body class="bg-danger">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 bg-danger" style="height: 50px;"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="container p-0 m-0 ">
+            <div class="row m-0   justify-content-center " style="height: 85vh; width: 100%;">
+
+
+                <div class="col-sm-1 p-0 m-0 col-lg-1 col-xl-1  ">
+                    <div class="container  sideBox p-0 m-0  d-flex flex-column  justify-content-end align-items-center"
+                        style="height: 100%; width: 100%;">
+                    </div>
+                </div>
+                <div class="col-sm-10 col-lg-9  bg-dark mainBox">
+
+                    <div class="row m-0 mt-5 me-2   justify-content-center " style=" height: 80%; width: 100%;">
+
+                        <div class="col-sm-1 p-0 m-0 col-lg-1 col-xl-1  ">
+                            <div class="container  sideBox p-0 m-0  d-flex flex-column  justify-content-end align-items-center"
+                                style="height: 100%; width: 100%;">
+                                <div class=" mb-4 buttonBox" style="height: 40px; width: 70%;"></div>
+                                <div class="mb-4 buttonBox" style="height: 40px; width: 70%;"></div>
+                                <div class="  mb-4 buttonBox" style="height: 40px; width: 70%;"></div>
+                                <div class="  mb-5 buttonBox" style="height: 40px; width: 70%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- *************************************************************************************************************** -->
+                        <!-- Main Display DIVISION -->
+                        <div class="col me-2 ms-2 p-0 contentBox">
+
+                            <div class=" container m-0 p-0   w-100 h-100">
+                                <div class="row  m-0 p-0 " style="height: 70%;">
+
+                                    <table class="inputTable">
+                                        <form id="loginForm">
+                                            <tr>
+                                                <td>
+                                                    <div class="spinner-border " id="sp" role="status">
+                                                        <span class="sr-only"></span>
+                                                    </div>
+                                                    <div style="display: none;" id="msg">
+                                                        <h4 class="label_Head">Withdraw
+                                                            Failed
+                                                        </h4>
+                                                        <h6 class="label_Head">Isufficient fund :(</h6>
+
+                                                    </div>
+
+
+
+                                                </td>
+                                            </tr>
+
+
+                                        </form>
+
+
+                                    </table>
+
+                                </div>
+                                <div class="row  m-0 p-0 align-items-end pb-5" style="height: 20%;">
+                                    <div class="row  p-0 m-0">
+
+                                    </div>
+
+                                    <div class="row gx-5 justify-content-around p-0 m-0 " id="buttons"
+                                        style="display: none;">
+
+
+                                        <div class="col-5 border  p-0 m-0 my-2 optionBox text-danger"
+                                            onclick="cancleBtn()">Exit</div>
+                                        <div class="col-5 border  p-0 m-0 my-2 optionBox text-success"
+                                            onclick="enterBtn()">Home</div>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+
+                        <!-- *************************************************************************************************************** -->
+                        <div class="col-sm-1 p-0 m-0 col-lg-1 col-xl-1 ">
+                            <div class="container  sideBoxR p-0 m-0 d-flex flex-column  justify-content-end align-items-center"
+                                style="height: 100%; width: 100%;">
+                                <div class=" mb-4 buttonBox " style="height: 40px; width: 70%;"></div>
+                                <div class=" mb-4 buttonBox" style="height: 40px; width: 70%;"></div>
+                                <div class="  mb-4 buttonBox" style="height: 40px; width: 70%;"></div>
+                                <div class="  mb-5 buttonBox" style="height: 40px; width: 70%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center pt-3">
+                            <h1 class="text-white">ATM</h1>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+                <div class="col-sm-1 p-0 m-0 col-lg-1 col-xl-1 ">
+                    <div class="container  sideBoxR p-0 m-0 d-flex flex-column  justify-content-end align-items-center"
+                        style="height: 100%; width: 100%;">
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+        <script>
+
+            setTimeout(() => {
+                document.getElementById("sp").style.display = 'none';
+                document.getElementById("buttons").style.display = 'flex'
+                document.getElementById("msg").style.display = 'inline'
+            }, 1500)
+            let amountInput = document.getElementById("amountInput");
+            let amount = amountInput.value;
+
+
+            function cancleBtn() {
+                window.location.href = 'atmLogin.html'
+            }
+
+            function enterBtn() {
+                window.location.href = 'atmHomepage.html'
+            }
+
+
+        </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <title>Document</title>
+    <style>
+        .remove{
+            background-color: rgba(25, 3, 40, 0.174);
+        }
+    </style>
+</head>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger text-white p-0">
+        <a class="navbar-brand ps-2 text-white" href="#">Bank Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse float-end" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<body>
+	 
+	 <div class="d-flex justify-content-center align-items-center ms-5 me-5">
+		 	
+
+		 	<div class="input-group mt-5 mb-5">
+				 
+    			 <input type="text"  oninput="search()" id="searchBox" class="form-control  " placeholder="Search by name" aria-label="Search" aria-describedby="search-addon" />
+   				 <button type="submit" class="btn btn-dark" data-mdb-ripple-init>Search</button>
+   				</div>
+					
+							
+
+		 	<div class="input-group mt-5 mb-5">
+    			
+   				 <input type="search" oninput="searchByAccount()" id="searchBoxAcc" class="form-control ms-5" placeholder="Search by Account no" aria-label="Search" aria-describedby="search-addon" />
+   				 <button type="submit" class="btn btn-primary" data-mdb-ripple-init>Search</button>
+			</div>
+			
+
+			
+	<!-- <img src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-8/256/Users-icon.png"
+                        class="card-img-top  w-25" alt="...">-->
+               </div>    
+	
+	 <div class="col-md-12">
+                  <table id="dynamicTable" class="table  text-center">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Account No</th>
+                                    <th>Name</th>
+                                    <th>Balance</th>
+                                    <th>Mobile</th>
+                                    <th>Status</th>
+                                </tr>
+                                
+                            </thead>
+                            
+                        </table>
+                  			
+                    </div>
+                    
+                    
+	<script>
+		function showData()
+		{
+			 let xhttp = new XMLHttpRequest();
+    	xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // Parse the JSON response
+            let data = JSON.parse(this.responseText);
+
+            // Get the table element
+            let table = document.getElementById("dynamicTable");
+
+            // Loop through the data and add rows to the table
+            for (let i = 0; i < data.length; i++) {
+                let row = table.insertRow(-1); // -1 appends the row at the end
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+                let cell5 = row.insertCell(4);
+                let cellStatus = row.insertCell(5);
+                
+                // Add more cells if needed
+
+                // Populate the cells with data
+                cell1.innerHTML = data[i].accountNo;
+                cell2.innerHTML = data[i].name;
+                cell3.innerHTML = data[i].balance;
+                cell4.innerHTML = data[i].mobile;
+                cell5.innerHTML = data[i].status;
+				cellStatus.innerHTML = data[i].status == "Active" ? `<button class="btn btn-danger" onclick="block(${data[i].accountNo})">Block</button> ` : `<button class="btn btn-success" onclick="unBlock(${data[i].accountNo})">Unblock</button> `
+                // Add more cells if needed
+            }
+        }
+    };
+
+    // Make a GET request to your servlet
+    xhttp.open("GET", "fetchCustomers", true);
+    xhttp.send();
+    
+		}
+		
+		
+		showData();
+		
+    
+    
+    function search() {
+    let sb = document.getElementById("searchBox");
+
+    console.log(sb.value);
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // Parse the JSON response
+            let data = JSON.parse(this.responseText);
+
+            // Get the table element
+            let table = document.getElementById("dynamicTable");
+
+            // Clear existing rows in the table
+            table.innerHTML = "";
+
+            // Loop through the data and add rows to the table
+            for (let i = 0; i < data.length; i++) {
+                let row = table.insertRow(-1); // -1 appends the row at the end
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+                let cell5 = row.insertCell(4);
+                let cellStatus = row.insertCell(5);
+
+                // Populate the cells with data
+                cell1.innerHTML = data[i].accountNo;
+                cell2.innerHTML = data[i].name;
+                cell3.innerHTML = data[i].balance;
+                cell4.innerHTML = data[i].mobile;
+                cell5.innerHTML = data[i].status;
+				cellStatus.innerHTML = data[i].status == "Active" ? `<button class="btn btn-danger" onclick="block(${data[i].accountNo})">Block</button> ` : `<button class="btn btn-success" onclick="unBlock(${data[i].accountNo})">Unblock</button> `
+            }
+        }
+    };
+
+    // Make a GET request to your servlet for search data
+    xhttp.open("GET", "fetchByName?name=" + sb.value, true);
+    xhttp.send();
+}
+
+
+   function searchByAccount()
+   {
+	   let sb = document.getElementById("searchBoxAcc");
+
+    console.log(sb.value);
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // Parse the JSON response
+            let data = JSON.parse(this.responseText);
+
+            // Get the table element
+            let table = document.getElementById("dynamicTable");
+
+            // Clear existing rows in the table
+            table.innerHTML = "";
+
+            // Loop through the data and add rows to the table
+            for (let i = 0; i < data.length; i++) {
+                let row = table.insertRow(-1); // -1 appends the row at the end
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+                let cell5 = row.insertCell(4);
+                let cellStatus = row.insertCell(5);
+                let cel
+
+                // Populate the cells with data
+                cell1.innerHTML = data[i].accountNo;
+                cell2.innerHTML = data[i].name;
+                cell3.innerHTML = data[i].balance;
+                cell4.innerHTML = data[i].mobile;
+                cell5.innerHTML = data[i].status;
+				cellStatus.innerHTML = data[i].status == "Active" ? `<button class="btn btn-danger" onclick="block(${data[i].accountNo})">Block</button> ` : `<button class="btn btn-success" onclick="unBlock(${data[i].accountNo})">Unblock</button> `
+            }
+        }
+    };
+
+    // Make a GET request to your servlet for search data
+    xhttp.open("GET", "fetchByAcc?account=" + sb.value, true);
+    xhttp.send();
+   }
+
+
+	
+	
+	function block(ac)
+	{
+		var xhttp = new XMLHttpRequest();
+
+            // Define the function to handle the response
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Handle the response from the servlet
+                    console.log(this.responseText);
+                }
+            };
+
+            // Open a GET request to your servlet, passing the accountNumber as a parameter
+            xhttp.open("GET", "blockUserURL?accountNumber=" + ac, true);
+
+            // Send the request
+            xhttp.send();
+            
+           
+				location.reload();
+				            alert("Account deleted successfully");
+
+			
+          
+	}
+	
+	function unBlock(ac)
+	{
+		var xhttp = new XMLHttpRequest();
+
+            // Define the function to handle the response
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Handle the response from the servlet
+                    console.log(this.responseText);
+                }
+            };
+
+            // Open a GET request to your servlet, passing the accountNumber as a parameter
+            xhttp.open("GET", "unBlockUserURL?accountNumber=" + ac, true);
+
+            // Send the request
+            xhttp.send();
+            
+           
+				location.reload();
+		
+                      alert("Account unblocked successfully");
+
+	}
+    
+		
+			
+	</script>
+	
+	 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

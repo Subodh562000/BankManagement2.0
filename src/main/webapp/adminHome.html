@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home | Bank Management System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    
+    <style>
+		.cardDiv:hover
+		{
+			box-shadow: 0 0 5px black;
+		}
+		
+	</style>
+    
+</head>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger text-white p-0">
+        <a class="navbar-brand ps-2 text-white" href="#">Bank Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse float-end" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </nav>
+</header>
+
+<body>
+	
+	
+	
+	<!--For Options-->
+	
+	
+	
+	
+	<div class="container-fluid">
+        <div class="row mt-5  d-flex justify-content-center align-items-center ">
+			
+			
+			
+			 <div class="col-sm-5 col-md-3 col-lg-2  d-flex justify-content-around align-items-center ">
+
+                <div class="card m-4 cardDiv" style="width: 18rem;" onclick="viewCustomers()">
+                    <img src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-8/256/Users-icon.png"
+                        class="card-img-top p-3" alt="...">
+                    <div class="d-flex justify-content-around">
+                        <h5 class="pb-3"> View Customers </h5>
+
+                    </div>
+                    </img>
+                </div>
+
+            </div>
+
+            <div class="col-sm-5 col-md-3 col-lg-2 d-flex justify-content-around align-items-center">
+    <div class="card m-4 cardDiv" style="width: 18rem;" data-toggle="modal" data-target="#addCustomerModal">
+        <img src="https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-list-add-user-icon.png"
+                        class="card-img-top p-3" alt="...">
+        <div class="d-flex justify-content-around">
+            <h5 class="pb-3"> Add Customer </h5>
+        </div>
+    </div>
+</div>
+
+
+			
+            
+
+            <div class="col-sm-5 col-md-3 col-lg-2  d-flex justify-content-around align-items-center ">
+    	<div class="card m-4 cardDiv" style="width: 18rem;" onclick="removeCustomer()">
+                    <img src="https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-list-remove-user-icon.png"
+                        class="card-img-top p-3" alt="...">
+                    <div class="d-flex justify-content-around">
+                        <h5 class="pb-3"> Remove Customer </h5>
+
+                    </div>
+                    </img>
+                </div>
+            </div>
+
+            <div class="  col-sm-5 col-md-3 col-lg-2  d-flex justify-content-around align-items-center ">
+                <div class=" card m-4  cardDiv" onclick="blockCustomer()"style="width: 18rem;">
+                    <img src="https://icons.iconarchive.com/icons/double-j-design/ravenna-3d/256/Block-icon.png"
+                        class="card-img-top p-3" alt="...">
+                    <div class="d-flex justify-content-around">
+                        <h5 class="pb-3">Block/Unblock</h5>
+
+                    </div>
+                    </img>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+	
+	
+	
+	
+	<!-- Add Customer Modal -->
+<div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-labelledby="addCustomerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCustomerModalLabel">Add Customer</h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class=" ">&times;</span>
+                </button>
+            </div>
+<form action="addCustomerURL" name="myForm" onsubmit="return validateForm()" method="post">
+            <div class="modal-body">
+                
+                    <div class="form-group">
+                        <label for="customerName">Name:</label>
+                        <input type="text" class="form-control"  id="customerName" name="name" placeholder="Enter customer name">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="customerPhone" >Phone No:</label>
+                        <input type="number" name="phone" class="form-control mt-2" id="customerPhone" placeholder="Enter customer phone number">
+                    </div>
+               
+            </div>
+            <div class="modal-footer">
+                
+                <button type="submit" class="btn btn-primary">Add Customer</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+             </form>
+        </div>
+    </div>
+</div>
+
+
+	
+	
+	
+	
+	
+<!--For table-->
+                   
+         
+         
+         <!-- Include jQuery from CDN -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
+    
+    
+    
+    <script>
+		
+		
+		
+		
+		
+		function validateForm() {
+        // Get the values of the name and phone fields
+        var nameValue = document.forms["myForm"]["name"].value;
+        var phoneValue = document.forms["myForm"]["phone"].value;
+
+        // Check if the name or phone field is empty
+        let flag = true;
+        if (nameValue.trim() === "" || nameValue.trim().length<10) {
+           	console.log(nameValue + " is empty");
+           	document.getElementById("customerName").style.boxShadow = "0 0 5px red";
+            flag = false; // Prevent the form from submitting
+        }
+
+		if(phoneValue.trim()==="" || phoneValue.trim().length < 10)
+		{
+			document.getElementById("customerPhone").style.boxShadow = "0 0 5px red";
+            flag = false; // Prevent the form from submitting
+		}
+        // If everything is okay, the form will submit
+        return flag;
+    }
+		
+		
+		function viewCustomers() {
+            window.location.href = "viewCustomers.html";
+
+        }
+
+	
+		
+		
+		
+		function removeCustomer()
+		{
+			window.location.href = "RemoveCustomer.html"
+		}
+		
+		function blockCustomer()
+		{ 
+			window.location.href = "BlockCustomer.html"
+		}
+		
+		
+		
+	
+		
+		
+	<!--Add button work-->
+	
+ 
+		
+		
+	</script>
+	<!--
+	 <script>
+        // Assume you set a variable named operationSuccessful in your server-side logic
+        // For example, in your server-side code, set: var operationSuccessful = true;
+
+        // Check the value of the variable and show an alert accordingly
+        if (typeof operationSuccessful !== 'undefined' && operationSuccessful) {
+            alert("Operation successful!");
+        } else {
+            alert("Operation failed. Please try again.");
+        }
+    </script>
+	-->
+	
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		
+</body>
+
+</html>
